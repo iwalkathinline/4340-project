@@ -13,6 +13,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        // Jacky was here
+        
         /*	Initiator Device:
          *	1.	Identify which devices are "invited" (UI - Jacky)
          *	2.	Identify length of meeting & preferred appointment date/time. (UI - Jacky)
