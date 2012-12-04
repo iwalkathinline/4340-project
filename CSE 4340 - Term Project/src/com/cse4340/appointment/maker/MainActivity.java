@@ -10,6 +10,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Jacky was here too
         
         /*	Initiator Device:
          *	1.	Identify which devices are "invited" (UI - Jacky)
