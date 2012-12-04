@@ -13,7 +13,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Jacky was here twices
+        // No more
         
         /*	Initiator Device:
          *	1.	Identify which devices are "invited" (UI - Jacky)
