@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -19,8 +20,8 @@ public class Setup_meeting extends Activity {
 /* Date Variables */
 private TextView startDateDisplay;
 private TextView endDateDisplay;
-private Button startPickDate;
-private Button endPickDate;
+private ImageButton startPickDate;
+private ImageButton endPickDate;
 private int fromYear, fromMonth, fromDay;
 private int toYear, toMonth, toDay;
 
@@ -32,8 +33,8 @@ static final int DATE_PICKER_FROM = 1;
 /* Time Variables */
 private TextView startTimeDisplay;
 private TextView endTimeDisplay;
-private Button startPickTime;
-private Button endPickTime;
+private ImageButton startPickTime;
+private ImageButton endPickTime;
 private int fromHour, fromMin;
 private int toHour, toMin;
 
@@ -50,7 +51,7 @@ protected void onCreate(Bundle savedInstanceState) {
     /* ================ Calendar ================ */
     /*  capture our View elements for the start date function   */
     startDateDisplay = (TextView) findViewById(R.id.startdateDisplay);
-    startPickDate = (Button) findViewById(R.id.startpickDate);
+    startPickDate = (ImageButton) findViewById(R.id.startpickDate);
 
     /* add a click listener to the button   */
     startPickDate.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +72,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
  /* capture our View elements for the end date function */
     endDateDisplay = (TextView) findViewById(R.id.enddateDisplay);
-    endPickDate = (Button) findViewById(R.id.endpickDate);
+    endPickDate = (ImageButton) findViewById(R.id.endpickDate);
 
     /* add a click listener to the button   */
     endPickDate.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +92,7 @@ protected void onCreate(Bundle savedInstanceState) {
     
     /* ================ Time ================ */
     startTimeDisplay = (TextView) findViewById(R.id.startTimeDisplay);
-    startPickTime = (Button) findViewById(R.id.startPickTime);
+    startPickTime = (ImageButton) findViewById(R.id.startPickTime);
     
     startPickTime.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -106,7 +107,7 @@ protected void onCreate(Bundle savedInstanceState) {
     updateStartTimeDisplay();
     
     endTimeDisplay = (TextView) findViewById(R.id.endTimeDisplay);
-    endPickTime = (Button) findViewById(R.id.endPickTime);
+    endPickTime = (ImageButton) findViewById(R.id.endPickTime);
     
     endPickTime.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
