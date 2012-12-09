@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/startdateDisplay"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:text="Start Date" />
+
+    <Button
+        android:id="@+id/startpickDate"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:text="Start Date" />
+
+    <TextView
+        android:id="@+id/enddateDisplay"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startpickDate"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="48dp"
+        android:text="End" />
+
+    <Button
+        android:id="@+id/endpickDate"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/enddateDisplay"
+        android:layout_alignBottom="@+id/enddateDisplay"
+        android:layout_alignParentRight="true"
+        android:text="End Date" />
+
+    <TextView
+        android:id="@+id/startTimeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enddateDisplay"
+        android:layout_centerVertical="true"
+        android:text="Start Time" />
+
+    <Button
+        android:id="@+id/startPickTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/endpickDate"
+        android:layout_centerVertical="true"
+        android:text="From Time" />
+
+    <TextView
+        android:id="@+id/endTimeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/startTimeDisplay"
+        android:layout_below="@+id/startPickTime"
+        android:layout_marginTop="26dp"
+        android:text="End Time" />
+
+    <Button
+        android:id="@+id/endPickTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/endTimeDisplay"
+        android:layout_alignBottom="@+id/endTimeDisplay"
+        android:layout_alignLeft="@+id/startPickTime"
+        android:text="To Time" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/endPickTime"
+        android:layout_below="@+id/endPickTime"
+        android:layout_marginTop="50dp"
+        android:onClick="selectPairedDevices"
+        android:text="Select Paired Devices" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/endTimeDisplay"
+        android:onClick="scanDevices"
+        android:text="Scan for Devices" />
+
+</RelativeLayout>
