@@ -76,7 +76,7 @@ public class ListPairedDevices extends Activity {
 			       
 			      }
 		      /* else{
-		    	  //Write code to unable "next" button and Show "there is not paired devices"
+		    	  //Write cod to unable "next" button and Show "there is not paired devices"
 		      } */
 	  }
 	  
