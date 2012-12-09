@@ -1,4 +1,4 @@
-package com.cse4340.appointment.maker;
+package com.4340-project;
 
 import java.util.Calendar;
 
@@ -240,10 +240,16 @@ private static String pad(int c) {
         return "0" + String.valueOf(c);
 }
 
-public void next(View view) {
+public void selectPairedDevices(View view) {
+	Intent intent = new Intent(this, ListPairedDevices.class);
+	startActivity(intent);
+}
+
+public void scanDevices(View view) {
 	Intent intent = new Intent(this, SelectAttendees.class);
 	startActivity(intent);
 }
+
 
 
 

@@ -75,10 +75,19 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/endPickTime"
+        android:layout_below="@+id/endPickTime"
+        android:layout_marginTop="50dp"
+        android:onClick="selectPairedDevices"
+        android:text="Select Paired Devices" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="36dp"
-        android:text="Next"
-        android:onClick= "next" />
+        android:layout_toRightOf="@+id/endTimeDisplay"
+        android:onClick="scanDevices"
+        android:text="Scan for Devices" />
 
 </RelativeLayout>
