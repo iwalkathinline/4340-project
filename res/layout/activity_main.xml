@@ -4,13 +4,21 @@
     android:layout_height="match_parent" >
 
     <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/acceptInvite" />
+
+    <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="102dp"
-        android:text="@string/setup_meeting"
-        android:onClick="setupMeeting" />
+        android:layout_marginBottom="56dp"
+        android:onClick="setupMeeting"
+        android:text="@string/setup_meeting" />
 
 </RelativeLayout>

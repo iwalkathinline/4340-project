@@ -10,7 +10,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -76,7 +75,7 @@ public class ListPairedDevices extends Activity {
 			       
 			      }
 		      /* else{
-		    	  //Write cod to unable "next" button and Show "there is not paired devices"
+		    	  //Write code to unable "next" button and Show "there is not paired devices"
 		      } */
 	  }
 	  

@@ -17,29 +17,35 @@ import android.widget.TimePicker;
 
 public class Setup_meeting extends Activity {
 
-/* Date Variables */
-private TextView startDateDisplay;
-private TextView endDateDisplay;
-private ImageButton startPickDate;
-private ImageButton endPickDate;
-private int fromYear, fromMonth, fromDay;
-private int toYear, toMonth, toDay;
+	/* Duration Variables */
+	private Button btnPlus;
+	private Button btnMinus;
+	public TextView numberPicker;
+	public int currentNumber;
+	
+	/* Date Variables */
+	private TextView startDateDisplay;
+	private TextView endDateDisplay;
+	private ImageButton startPickDate;
+	private ImageButton endPickDate;
+	private int fromYear, fromMonth, fromDay;
+	private int toYear, toMonth, toDay;
 
 
-static final int DATE_PICKER_TO = 0;
-static final int DATE_PICKER_FROM = 1;
-
-
-/* Time Variables */
-private TextView startTimeDisplay;
-private TextView endTimeDisplay;
-private ImageButton startPickTime;
-private ImageButton endPickTime;
-private int fromHour, fromMin;
-private int toHour, toMin;
-
-static final int TIME_PICKER_TO = 2;
-static final int TIME_PICKER_FROM = 3;
+	static final int DATE_PICKER_TO = 0;
+	static final int DATE_PICKER_FROM = 1;
+	
+	
+	/* Time Variables */
+	private TextView startTimeDisplay;
+	private TextView endTimeDisplay;
+	private ImageButton startPickTime;
+	private ImageButton endPickTime;
+	private int fromHour, fromMin;
+	private int toHour, toMin;
+	
+	static final int TIME_PICKER_TO = 2;
+	static final int TIME_PICKER_FROM = 3;
 
 
 /** Called when the activity is first created. */
@@ -50,7 +56,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
     /* ================ Calendar ================ */
     /*  capture our View elements for the start date function   */
-    startDateDisplay = (TextView) findViewById(R.id.startdateDisplay);
+    startDateDisplay = (TextView) findViewById(R.id.startDateDisplay);
     startPickDate = (ImageButton) findViewById(R.id.startpickDate);
 
     /* add a click listener to the button   */
@@ -70,7 +76,7 @@ protected void onCreate(Bundle savedInstanceState) {
     updateStartDisplay();
 
 
- /* capture our View elements for the end date function */
+    /* capture our View elements for the end date function */
     endDateDisplay = (TextView) findViewById(R.id.enddateDisplay);
     endPickDate = (ImageButton) findViewById(R.id.endpickDate);
 
@@ -89,6 +95,44 @@ protected void onCreate(Bundle savedInstanceState) {
 
     /* display the current date (this method is below)  */
     updateEndDisplay();
+    
+    /* ================ Duration ================ */
+    numberPicker = (TextView) findViewById(R.id.numberPickerDisplay);
+    btnPlus = (Button) findViewById(R.id.plus);
+    btnMinus = (Button) findViewById(R.id.minus);
+   
+    btnMinus.setOnClickListener(new View.OnClickListener() {
+       public void onClick(View v) {
+    	   currentNumber = Integer.parseInt((String) numberPicker.getText().toString());
+    	   if(currentNumber == 1){
+    		   currentNumber--;
+    		   numberPicker.setText(String.valueOf(currentNumber));
+    		   btnMinus.setEnabled(false);
+    	   }
+    	   else{
+    		   currentNumber--;
+    		   numberPicker.setText(String.valueOf(currentNumber));
+    		   btnPlus.setEnabled(true);
+    	   }
+       }
+    });
+   
+    btnPlus.setOnClickListener(new View.OnClickListener() {
+       public void onClick(View v) {
+    	   currentNumber = Integer.parseInt((String) numberPicker.getText().toString());
+    	   if(currentNumber == 7){
+    		   currentNumber++;
+    		   numberPicker.setText(String.valueOf(currentNumber));
+    		   btnPlus.setEnabled(false);
+    	   }
+    	   else{
+	    	   currentNumber++;
+			   numberPicker.setText(String.valueOf(currentNumber));
+			   btnMinus.setEnabled(true);
+    	   }
+		   
+       }
+    });
     
     /* ================ Time ================ */
     startTimeDisplay = (TextView) findViewById(R.id.startTimeDisplay);
@@ -185,6 +229,7 @@ public void onDateSet(DatePicker view, int year,
     updateEndDisplay();
 }
 };
+
 
 private TimePickerDialog.OnTimeSetListener from_timeListener =
 new TimePickerDialog.OnTimeSetListener() {

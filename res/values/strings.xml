@@ -9,5 +9,11 @@
     <string name="title_activity_setup_meeting">Setup_meeting</string>
     <string name="title_activity_select_attendees">SelectAttendees</string>
     <string name="title_activity_list_paired_devices">ListPairedDevices</string>
+    <string name="to">To: </string>
+    <string name="from">From:</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="acceptInvite">Accept Invitation</string>
+    <string name="selectPairedInstruction">Please select attendees</string>
 
 </resources>

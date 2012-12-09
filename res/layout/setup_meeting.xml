@@ -5,62 +5,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="666dp" >
-
-    <ImageButton
-        android:id="@+id/endPickTime"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@+id/endTimeDisplay"
-        android:layout_alignLeft="@+id/startPickTime"
-        android:src="@drawable/clock_icon" />
-
-    <ImageButton
-        android:id="@+id/startPickTime"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@+id/startTimeDisplay"
-        android:layout_toRightOf="@+id/startTimeDisplay"
-        android:src="@drawable/clock_icon" />
-
-    <TextView
-        android:id="@+id/startTimeDisplay"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/TextView01"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="16dp"
-        android:text="Start Time" />
-
-    <TextView
-        android:id="@+id/endTimeDisplay"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/startPickTime"
-        android:layout_marginTop="29dp"
-        android:layout_toLeftOf="@+id/endPickTime"
-        android:text="End Time" />
-
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/endTimeDisplay"
-        android:layout_alignLeft="@+id/TextView01"
-        android:text="To:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="36dp"
-        android:layout_toLeftOf="@+id/startTimeDisplay"
-        android:text="From:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
+    android:layout_width="match_parent"
+    android:layout_height="696dp" >
+    
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -72,107 +19,192 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/endPickTime"
-        android:layout_marginTop="87dp"
-        android:text="2. Duration of Meeting"
+        android:layout_below="@+id/endTimeDisplay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="214dp"
+        android:text="3. Select Meeting Span Dates"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-   
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/endTimeDisplay"
-        android:layout_alignLeft="@+id/TextView01"
-        android:text="To:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/startdateDisplay"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/endTimeDisplay"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="40dp"
-        android:text="Start Date" />
-
-    <TextView
-        android:id="@+id/enddateDisplay"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/startdateDisplay"
-        android:layout_below="@+id/startdateDisplay"
-        android:layout_marginTop="29dp"
-        android:text="End" />
-
-    <ImageButton
-        android:id="@+id/startpickDate"
-        android:layout_width="30dp"
-        android:layout_height="45dp"
-        android:layout_above="@+id/enddateDisplay"
-        android:layout_alignLeft="@+id/endpickDate"
-        android:src="@drawable/calendar_icon" />
 
     <ImageButton
         android:id="@+id/endpickDate"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_alignBottom="@+id/enddateDisplay"
         android:layout_alignRight="@+id/endPickTime"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/calendar_icon" />
+
+    <ImageButton
+        android:id="@+id/startpickDate"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/endpickDate"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="16dp"
         android:src="@drawable/calendar_icon" />
 
     <TextView
-        android:id="@+id/TextView03"
+        android:id="@+id/numberPickerDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/startdateDisplay"
-        android:layout_toLeftOf="@+id/startTimeDisplay"
-        android:text="From:"
+        android:layout_alignBaseline="@+id/minus"
+        android:layout_alignBottom="@+id/minus"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/minus"
+        android:text="0"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/TextView04"
+    <Button
+        android:id="@+id/minus"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/enddateDisplay"
-        android:layout_alignBottom="@+id/enddateDisplay"
+        android:layout_alignBaseline="@+id/plus"
+        android:layout_alignBottom="@+id/plus"
+        android:layout_alignRight="@+id/endTimeDisplay"
+        android:enabled="false"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/plus"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="16dp"
+        android:layout_toLeftOf="@+id/endTimeDisplay"
+        android:text="+" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/endpickDate"
         android:layout_alignLeft="@+id/TextView03"
         android:text="To:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/enddateDisplay"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/TextView02"
+        android:layout_centerHorizontal="true"
+        android:text="@string/end" />
+
+    <TextView
+        android:id="@+id/endTimeDisplay"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/endPickTime"
+        android:layout_alignRight="@+id/enddateDisplay"
+        android:text="@string/end" />
+
+    <TextView
+        android:id="@+id/startDateDisplay"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/startpickDate"
+        android:layout_alignLeft="@+id/enddateDisplay"
+        android:text="@string/start" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/minus"
+        android:layout_alignBottom="@+id/minus"
+        android:layout_toRightOf="@+id/startpickDate"
+        android:text="Hours"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/startTimeDisplay"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/endPickTime"
+        android:layout_alignLeft="@+id/endTimeDisplay"
+        android:text="@string/start" />
+
+    <ImageButton
+        android:id="@+id/endPickTime"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignRight="@+id/startDateDisplay"
+        android:layout_below="@+id/startPickTime"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/clock_icon" />
+
+    <ImageButton
+        android:id="@+id/startPickTime"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/textView5"
+        android:src="@drawable/clock_icon" />
 
     <Button
         android:id="@+id/button2"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_toRightOf="@+id/button1"
-        android:onClick="scanDevices"
-        android:text="Scan for Devices" />
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignTop="@+id/button1"
+        android:onClick="selectPairedDevices"
+        android:text="Select Paired Devices" />
 
     <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/TextView04"
-        android:layout_marginTop="40dp"
-        android:onClick="selectPairedDevices"
-        android:text="Select Paired Devices" />
+        android:layout_alignLeft="@+id/endpickDate"
+        android:layout_below="@+id/endpickDate"
+        android:layout_marginTop="59dp"
+        android:onClick="scanDevices"
+        android:text="Scan Devices" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/TextView03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="112dp"
-        android:text="3. Select Meeting Span Dates"
+        android:layout_alignBottom="@+id/startDateDisplay"
+        android:layout_alignRight="@+id/plus"
+        android:layout_marginRight="17dp"
+        android:text="@string/from"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TextView002"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/endTimeDisplay"
+        android:layout_alignLeft="@+id/TextView03"
+        android:text="@string/to"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/startTimeDisplay"
+        android:layout_alignBottom="@+id/startTimeDisplay"
+        android:layout_alignLeft="@+id/TextView002"
+        android:text="@string/from"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/endTimeDisplay"
+        android:layout_marginTop="62dp"
+        android:text="2. Duration of Meeting"
         android:textAppearance="?android:attr/textAppearanceLarge" />
    
 </RelativeLayout>
