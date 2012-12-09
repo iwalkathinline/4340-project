@@ -21,7 +21,7 @@ public class Setup_meeting extends Activity {
 	private Button btnPlus;
 	private Button btnMinus;
 	public TextView numberPicker;
-	public int currentNumber;
+	private int currentNumber;
 	
 	/* Date Variables */
 	private TextView startDateDisplay;
@@ -294,6 +294,10 @@ public void selectPairedDevices(View view) {
 public void scanDevices(View view) {
 	Intent intent = new Intent(this, SelectAttendees.class);
 	startActivity(intent);
+}
+
+public int getDurationOfMeeting(){
+	return Integer.parseInt((String) numberPicker.getText().toString());
 }
 
 
