@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.finalproject"
+    package="com.4340-project"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.finalproject.MainActivity"
+            android:name="com.4340-project.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,23 +28,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.finalproject.Setup_meeting"
+            android:name=".Setup_meeting"
             android:label="@string/title_activity_setup_meeting" >
             <meta-data
                 android:name="android.suppport.PARENT_ACTIVITY"
-                android:value=".com.finalproject.MainActivity" />
+                android:value="com.4340-project.MainActivity" />
         </activity>
         <activity
-            android:name="com.finalproject.SelectAttendees"
+            android:name=".SelectAttendees"
             android:label="@string/title_activity_select_attendees" >
             <meta-data
                 android:name="android.suppport.PARENT_ACTIVITY"
-                android:value=".com.finalproject.MainActivity" />
+                android:value="com.4340-project.MainActivity" />
         </activity>
         <activity
-            android:name="com.finalproject.ListPairedDevices"
-            android:label="@string/title_activity_list_paired_devices"
-            android:parentActivityName="com.finalproject.MainActivity" >
+            android:name=".ListPairedDevices"
+            android:label="@string/title_activity_list_paired_devices" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.finalproject.MainActivity" />
