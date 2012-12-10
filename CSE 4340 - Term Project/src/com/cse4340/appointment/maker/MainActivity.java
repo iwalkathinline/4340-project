@@ -20,8 +20,8 @@ public class MainActivity extends Activity {
         ArrayList<Device> attendees = new ArrayList<Device>();
         attendees.add(new Device());
         Time startTime = new Time(), endTime = new Time();
-        startTime.set(0, 0, 14, 1, 11, 2012);
-        endTime.set(0, 30, 15, 2, 11, 2012);
+        startTime.set(0, 0, 1, 1, 11, 2012);
+        endTime.set(0, 0, 23, 2, 11, 2012);
         
         Invitation appointment = new Invitation(attendees, startTime, endTime);
         appointment.setDescription("Test Description");

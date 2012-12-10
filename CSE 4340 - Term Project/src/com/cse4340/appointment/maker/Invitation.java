@@ -15,11 +15,11 @@ import android.text.format.Time;
  *
  */
 public class Invitation implements Serializable {
-	private ArrayList<Device> myAttendees;
-	private Time myStartTime = null, myEndTime = null;
-	private boolean[][] myAvailableTimes;
-	private int myDuration;	// Measured in number of minutes
-	private String myLocation, myTitle, myDescription;
+	private static ArrayList<Device> myAttendees;
+	private static Time myStartTime = null, myEndTime = null;
+	private static boolean[][] myAvailableTimes;
+	private static int myDuration, hrSpan;	// Measured in number of minutes
+	private static String myLocation, myTitle, myDescription;
 	
 	/**
 	 * 
@@ -31,8 +31,8 @@ public class Invitation implements Serializable {
 		myAttendees = attendees;
 		myStartTime = startTime;
 		myEndTime = endTime;
-		
-		initializeArray();
+		hrSpan = countHours();
+		myAvailableTimes = new boolean[myAttendees.size()][hrSpan];
 	}
 	
 	/**
@@ -57,17 +57,21 @@ public class Invitation implements Serializable {
 	}
 
 	/**
+	 * @param row the row to set
+	 * @param col the col to set
 	 * @return the availableTimes
 	 */
-	public boolean[][] getAvailableTimes() {
-		return myAvailableTimes;
+	public boolean getAvailable(int row, int col) {
+		return myAvailableTimes[row][col];
 	}
 
 	/**
-	 * @param availableTimes the availableTimes to set
+	 * @param row the row to set
+	 * @param col the col to set
+	 * @param available the available to set
 	 */
-	public void setAvailableTimes(boolean[][] availableTimes) {
-		myAvailableTimes = availableTimes;
+	public void setAvailable(int row, int col, boolean available) {
+		myAvailableTimes[row][col] = available;
 	}
 	
 	/**
@@ -82,6 +86,10 @@ public class Invitation implements Serializable {
 	 */
 	public void setDuration(int duration) {
 		myDuration = duration;
+	}
+	
+	public int getHrSpan () {
+		return hrSpan;
 	}
 
 	/**
@@ -125,22 +133,13 @@ public class Invitation implements Serializable {
 	public void setDescription(String description) {
 		myDescription = description;
 	}
-	
-	private void initializeArray() {
-		int numOfHours = countHours();
-		
-		myAvailableTimes = new boolean[myAttendees.size()][numOfHours];
-		
-		for (int row = 0; row < myAttendees.size(); row++) {
-			for (int col = 0; col < numOfHours; col++) {
-				System.out.println("[" + row + "][" + col + "] = " + myAvailableTimes[row][col]);
-			}
-		}
-	}
 
+	/**
+	 * 
+	 * @return the total number of hours that the meeting organizer's request spans
+	 */
 	private int countHours() {
-		long startMillis = myStartTime.toMillis(true);
-		long endMillis = myEndTime.toMillis(true);
+		long startMillis = myStartTime.toMillis(true), endMillis = myEndTime.toMillis(true);
 		long totalMillis = endMillis - startMillis;
 		long totalMins = TimeUnit.MILLISECONDS.toMinutes(totalMillis);
 		double totalHrs = Math.ceil(totalMins / 60.0);
