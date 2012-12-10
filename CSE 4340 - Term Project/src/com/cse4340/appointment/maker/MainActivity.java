@@ -1,6 +1,6 @@
 package com.cse4340.appointment.maker;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothClass.Device;
@@ -17,23 +17,19 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        Set<Device> attendees = null;
+        ArrayList<Device> attendees = new ArrayList<Device>();
+        attendees.add(new Device());
         Time startTime = new Time(), endTime = new Time();
         startTime.set(0, 0, 14, 1, 11, 2012);
-        endTime.set(0, 0, 15, 1, 11, 2012);
+        endTime.set(0, 30, 15, 2, 11, 2012);
         
-        Invitation appointment = new Invitation(attendees, getContentResolver(), startTime, endTime);
+        Invitation appointment = new Invitation(attendees, startTime, endTime);
         appointment.setDescription("Test Description");
         appointment.setDuration(60);
-        //appointment.setStartDateTime(new Date(2012, 11, 1, 14, 0));
-        //appointment.setEndDateTime(new Date(2012, 11, 1, 15, 0));
         appointment.setLocation("Test Location");
         appointment.setTitle("Test Title");
         
-        if (appointment.eliminateHostTimes()) {
-        	
-        }
-        //new ProcessInvitationTask(getContentResolver()).execute(appointment);
+        new ProcessInvitationTask(getContentResolver()).execute(appointment);
         
         /*	Initiator Device:
          *	1.	Identify which devices are "invited" (UI - Jacky)

@@ -3,6 +3,8 @@
  */
 package com.cse4340.appointment.maker;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -21,141 +23,130 @@ import android.text.format.DateUtils;
  */
 public class ProcessInvitationTask extends AsyncTask<Invitation, Void, Invitation> {
 	private ContentResolver myCR;
-	static Cursor cursor;
+	private static Cursor cursor;
+	private static Invitation myInvitation;
 	
+	/**
+	 * 
+	 * @param cr - The ContentResolver, just passing in getContentResolver() usually works fine
+	 */
 	public ProcessInvitationTask(ContentResolver cr) {
 		myCR = cr;
 	}
 	
 	@Override
 	protected Invitation doInBackground(Invitation... invitation) {
-		Uri uri = Calendars.CONTENT_URI;
+		myInvitation = invitation[0];
 		
-		cursor = myCR.query(Uri.parse("content://com.android.calendar/calendars"), 
-				(new String[] {Calendars._ID, Calendars.ACCOUNT_NAME, Calendars.CALENDAR_DISPLAY_NAME, Calendars.OWNER_ACCOUNT}), 
-				null, 
-				null, 
-				null);
+		if (eliminateTimes())
+			System.out.println("Times eliminated successfully!");
 		
-		HashSet<String> calendarIds = new HashSet<String>();
+		return myInvitation;
+	}
+	
+	/**
+	 * Returns true if the organizer's unavailable times were successfully eliminated from the Invitation's availableTimes array, 
+	 * otherwise returns false. Be sure that startDateTime and endDateTime have both been set before calling this method.
+	 */
+	public boolean eliminateTimes() {
+		// Get duration
+		// Check calendar for all available durations between start and end
+		// Modify availableTimes[] to reflect only the first row's eliminations
 		
-		try {
-			System.out.println("Count = " + cursor.getCount());
-			if (cursor.getCount() > 0) {
-				while (cursor.moveToNext()) {
-					String _id = cursor.getString(0);
-					String displayName = cursor.getString(1);
-					Boolean selected = !cursor.getString(2).equals("0");
-					
-					System.out.println("Id: " + _id + " Display Name: " + displayName + " Selected: " + selected);
-					calendarIds.add(_id);
-				}
-			}
-		} catch (AssertionError ex) {
-			ex.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// If startDateTime and endDateTime haven't been set yet, the a run-time error will occur in this method
+		if (myInvitation.getStartTime() == null || myInvitation.getEndTime() == null)
+			return false;
 		
-		// For each calendar, display all the events from the previous week to the end of next week
-		for (String id : calendarIds) {
-			Uri.Builder builder = Uri.parse("content://com.android.calendar/instances/when").buildUpon();
-			long now = new Date().getTime();
-			
-			ContentUris.appendId(builder, now - DateUtils.DAY_IN_MILLIS * 10000);
-			ContentUris.appendId(builder, now + DateUtils.DAY_IN_MILLIS * 10000);
-			
-			Cursor eventCursor = myCR.query(builder.build(), 
-					new String[] {Instances.EVENT_ID, Instances.BEGIN, Instances.TITLE}, 
-					null, 
-					null, 
-					null);
-			
-			if (eventCursor.getCount() > 0) {
-				eventCursor.moveToFirst();
-				
-				final String title = eventCursor.getString(0);
-				final Date begin = new Date(eventCursor.getLong(1));
-				final Date end = new Date(eventCursor.getLong(2));
-				
-				System.out.println("Title: " + title);
-				System.out.println("Begin: " + begin);
-				System.out.println("End: " + end);
-				
-				/*while (eventCursor.moveToNext()) {
-					
-					//final Boolean allDay = !eventCursor.getString(3).equals("0");
-					
-					System.out.println("Title: " + title);
-					System.out.println("Begin: " + begin);
-					System.out.println("End: " + end);
-					//System.out.println("All Day: " + allDay);
-				}*/
-			}
-		}
-		
-		/*final String[] INSTANCE_PROJECTION = new String[] {
-			Instances.EVENT_ID,		// 0
-			Instances.BEGIN, 		// 1
-			Instances.TITLE			// 2
+		final String[] INSTANCE_PROJECTION = new String[] {
+				Instances.EVENT_ID,		// 0
+				Instances.BEGIN, 		// 1
+				Instances.TITLE, 		// 2
+				Instances.START_DAY, 	// 3
+				Instances.START_MINUTE, // 4
+				Instances.END_DAY, 		// 5
+				Instances.END_MINUTE, 	// 6
+				Instances.DURATION, 	// 7
+				Instances.ORGANIZER, 	// 8
+				Instances.DESCRIPTION	// 9
 		};
 		
-		// The indices for the projection array above
 		final int PROJECTION_ID_INDEX = 0;
 		final int PROJECTION_BEGIN_INDEX = 1;
 		final int PROJECTION_TITLE_INDEX = 2;
+		final int PROJECTION_START_DAY_INDEX = 3;
+		final int PROJECTION_START_MINUTE_INDEX = 4;
+		final int PROJECTION_END_DAY_INDEX = 5;
+		final int PROJECTION_END_MINUTE_INDEX = 6;
+		final int PROJECTION_DURATION_INDEX = 7;
+		final int PROJECTION_ORGANIZER_INDEX = 8;
+		final int PROJECTION_DESCRIPTION_INDEX = 9;
 		
-		// Specify the date range you want to search for recurring event instances
 		Calendar beginTime = Calendar.getInstance();
-		beginTime.set(2012, 12, 8, 8, 0);
+		beginTime.set(myInvitation.getStartTime().year, 
+				myInvitation.getStartTime().month, // Month is 0-based
+				myInvitation.getStartTime().monthDay, 
+				myInvitation.getStartTime().hour, 
+				myInvitation.getStartTime().minute);
 		long startMillis = beginTime.getTimeInMillis();
 		Calendar endTime = Calendar.getInstance();
-		endTime.set(2012, 12, 8, 23, 0);
+		endTime.set(myInvitation.getEndTime().year, 
+				myInvitation.getEndTime().month, // Month is 0-based
+				myInvitation.getEndTime().monthDay, 
+				myInvitation.getEndTime().hour, 
+				myInvitation.getEndTime().minute);
 		long endMillis = endTime.getTimeInMillis();
 		
 		Cursor cur = null;
 		
-		// Construct the query with the desired date range
 		Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
 		ContentUris.appendId(builder, startMillis);
 		ContentUris.appendId(builder, endMillis);
 		
-		// Submit the query
 		cur = myCR.query(builder.build(), 
 				INSTANCE_PROJECTION, 
 				null, 
 				null, 
 				null);
 		
-		cur.moveToFirst();
 		while (cur.moveToNext()) {
-			final String title = cur.getString(PROJECTION_TITLE_INDEX);
-			final Date begin = new Date(cur.getLong(PROJECTION_BEGIN_INDEX));
-			final Date end = new Date(cur.getLong(2));
-			
+			String title = null;
+			long eventID = 0;
 			long beginVal = 0;
+			int startDay = 0;
+			int startMinute = 0;
+			int endDay= 0;
+			int endMinute = 0;
+			String duration = null;
+			String organizer = null;
+			String description = null;
 			
-			// Get the field values
+			eventID = cur.getLong(PROJECTION_ID_INDEX);
 			beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
+			title = cur.getString(PROJECTION_TITLE_INDEX);
+			startDay = cur.getInt(PROJECTION_START_DAY_INDEX);
+			startMinute = cur.getInt(PROJECTION_START_MINUTE_INDEX);
+			endDay = cur.getInt(PROJECTION_END_DAY_INDEX);
+			endMinute = cur.getInt(PROJECTION_END_MINUTE_INDEX);
+			duration = cur.getString(PROJECTION_DURATION_INDEX);
+			organizer = cur.getString(PROJECTION_ORGANIZER_INDEX);
+			description = cur.getString(PROJECTION_DESCRIPTION_INDEX);
 			
-			// Do something with the values
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(beginVal);
 			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-			System.out.println("Title: " + title);
-			System.out.println("Begin: " + formatter.format(begin));
-			System.out.println("End: " + formatter.format(end));
+			
+			System.out.println("Event: " + title);
+			System.out.println("Begin: " + formatter.format(calendar.getTime()));
+			System.out.println("Event ID: " + eventID);
+			System.out.println("Start Day: " + startDay);
+			System.out.println("Start Minute: " + startMinute);
+			System.out.println("End Day: " + endDay);
+			System.out.println("End Minute: " + endMinute);
+			System.out.println("Duration: " + duration);
+			System.out.println("Organizer: " + organizer);
+			System.out.println("Description: " + description);
 		}
 		
-		/*Intent intent = new Intent(Intent.ACTION_INSERT)
-				.setData(Events.CONTENT_URI)
-				.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-				.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-				.putExtra(Events.TITLE, invitation[0].getTitle())
-				.putExtra(Events.DESCRIPTION, invitation[0].getDescription())
-				.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_TENTATIVE)
-				.putExtra(Intent.EXTRA_EMAIL, "thomas.gallagher@mavs.uta.edu");
-		*/
-		return invitation[0];
+		return true;
 	}
 }
