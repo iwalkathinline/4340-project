@@ -1,40 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/sendInvite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="34dp"
-        android:text="Send" />
+        android:text="@string/send" />
 
     <ListView
         android:id="@+id/pairedDevices"
         android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:layout_above="@+id/button1"
+        android:layout_height="330dp"
+        android:layout_above="@+id/sendInvite"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        
         android:layout_alignParentLeft="true" >
     </ListView>
 
     <TextView
         android:id="@+id/bluetoothstate"
-        android:layout_width="wrap_content"
+        android:layout_width="260dp"
         android:layout_height="20dp"
-        android:layout_above="@+id/pairedDevices"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="32dp" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bluetoothstate"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="18dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
         android:text="@string/selectPairedInstruction"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

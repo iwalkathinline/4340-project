@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,6 +28,9 @@ public class ListPairedDevices extends Activity {
 	private static final int REQUEST_ENABLE_BT = 1;
 	public static ArrayList<BluetoothDevice> selectedPairedDevices = new ArrayList<BluetoothDevice>();
 	Set<BluetoothDevice> pairedDevices;
+	
+	NotificationManager myNotificationManager;
+	public static final int NOTIFICATION_ID = 1;
  
 	private static ListView listDevicesFound;
 	private static BluetoothAdapter bluetoothAdapter;
@@ -51,7 +58,7 @@ public class ListPairedDevices extends Activity {
 			  btArrayAdapter = new ArrayAdapter<String>(ListPairedDevices.this, android.R.layout.simple_list_item_multiple_choice);
 			  listDevicesFound.setAdapter(btArrayAdapter);
 			  listDevicesFound.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-			  btnNext = (Button) findViewById(R.id.button1);
+			  btnNext = (Button) findViewById(R.id.sendInvite);
 			  
 			  //Check what is the state of bluetooth
 			  CheckBlueToothState();
@@ -74,10 +81,12 @@ public class ListPairedDevices extends Activity {
 			       btArrayAdapter.notifyDataSetChanged();
 			       
 			      }
-		      /* else{
+			  }
+		       else{
 		    	  //Write code to unable "next" button and Show "there is not paired devices"
-		      } */
-	  }
+		    	   btnNext.setEnabled(false);
+		      
+		       }
 	  
 	  
 	  
@@ -92,6 +101,9 @@ public class ListPairedDevices extends Activity {
 		  
 		  @Override
 		  public void onClick(View arg0) {
+			  
+			  //Clear selectedDevices array
+			  selectedPairedDevices.clear();
 			  
 			   //Count the number of devices found as paired
 			   //and go trough everyone to check if it is selected (or checked)
@@ -115,17 +127,28 @@ public class ListPairedDevices extends Activity {
 					             }
 					         } 
 				 
-				 //Debug
-				 String names = "";
-				 for (BluetoothDevice device : selectedPairedDevices) {
-				       String deviceBTName = device.getName();
-				       names += deviceBTName + "/n"; 
-				 }
-				 Toast msg = Toast.makeText(ListPairedDevices.this, names, Toast.LENGTH_LONG);
+				 
+				 if(!selectedPairedDevices.isEmpty()){	 
+					 Toast msg = Toast.makeText(ListPairedDevices.this, "Please wait while we find an available spot for your meeting. " +
+					 		"Meanwhile, you can chill and relax, we will notify you. ", Toast.LENGTH_LONG);
 
-				 msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
+					 msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
 
-				 msg.show();
+					 msg.show();
+					 //Code for searching meeting time
+					  
+					 createInvitation();
+					 meetingCreated();
+					 
+					}
+					else{
+						//if no selection was made
+						Toast msg = Toast.makeText(ListPairedDevices.this, "Please select attendees from the list. ", Toast.LENGTH_LONG);
+
+						 msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
+
+						 msg.show();
+					}
 				      } 
 		  
  
@@ -178,12 +201,50 @@ public class ListPairedDevices extends Activity {
         }
     }
  
- public void selectTimes(View view){
-	 
-	 
-
-	 //Intent intent = new Intent(this, Setup_meeting.class);
- 	 //startActivity(intent);
+ /** createInvitation
+  *  Description: Creates Invitation Object
+  */
+ public void createInvitation(){
+	  //
+ }
+ 
+ /** invitationCreated
+  *  Description: when a available spot was made. Call this function
+  *  	to show a message that an invitation was created. Basically it 
+  *  	shows a notification message.
+  */
+ public void meetingCreated(){
+	   //Notify of meeting created
+	   myNotificationManager =
+	   (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+	  
+	  CharSequence NotificationTicket = "*** Notification";
+	  CharSequence NotificationTitle = "Attention Please!";
+	  CharSequence NotificationContent = "- Notification is coming -";
+	  long when = System.currentTimeMillis();
+	  
+	  Notification notification =
+	   new Notification(android.R.drawable.btn_star_big_on,
+	     NotificationTicket, when);
+	    
+	  Context context = getApplicationContext();
+	
+	  Intent notificationIntent = new Intent(this,
+	   SelectAttendees.class);
+	  PendingIntent contentIntent =
+	   PendingIntent.getActivity(this, 0, notificationIntent, 0);
+	
+	  notification.setLatestEventInfo(context, NotificationTitle,
+	    NotificationContent, contentIntent);
+	  
+	  myNotificationManager.notify(NOTIFICATION_ID, notification);
+	  
+ }
+   
+ public void noMeetingScheduled(){
+	  //Notify that no meeting was created
+	  //because there was not available times
+	  
  }
  
  

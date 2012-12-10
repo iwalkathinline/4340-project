@@ -21,15 +21,15 @@ public class Setup_meeting extends Activity {
 	private Button btnPlus;
 	private Button btnMinus;
 	public TextView numberPicker;
-	private int currentNumber;
+	public int currentNumber;
 	
 	/* Date Variables */
 	private TextView startDateDisplay;
 	private TextView endDateDisplay;
 	private ImageButton startPickDate;
 	private ImageButton endPickDate;
-	private int fromYear, fromMonth, fromDay;
-	private int toYear, toMonth, toDay;
+	public int fromYear, fromMonth, fromDay;
+	public int toYear, toMonth, toDay;
 
 
 	static final int DATE_PICKER_TO = 0;
@@ -41,8 +41,8 @@ public class Setup_meeting extends Activity {
 	private TextView endTimeDisplay;
 	private ImageButton startPickTime;
 	private ImageButton endPickTime;
-	private int fromHour, fromMin;
-	private int toHour, toMin;
+	public int fromHour, fromMin;
+	public int toHour, toMin;
 	
 	static final int TIME_PICKER_TO = 2;
 	static final int TIME_PICKER_FROM = 3;
@@ -294,10 +294,6 @@ public void selectPairedDevices(View view) {
 public void scanDevices(View view) {
 	Intent intent = new Intent(this, SelectAttendees.class);
 	startActivity(intent);
-}
-
-public int getDurationOfMeeting(){
-	return Integer.parseInt((String) numberPicker.getText().toString());
 }
 
 
